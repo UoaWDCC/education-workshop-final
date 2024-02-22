@@ -1,4 +1,5 @@
 .card {
+    height: 130px;
     padding: 20px;
     display: flex;
     flex-direction: row;

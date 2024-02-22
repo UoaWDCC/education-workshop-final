@@ -40,6 +40,7 @@ const Sidebar = ({ contacts }) => {
       <div className={styles.corner}>
         <h2>Friends</h2>
         <input
+            className={styles.searchbar}
           type="text"
           placeholder="Search..."
           value={searchTerm}
