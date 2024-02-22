@@ -12,12 +12,12 @@ export function FriendDisplay ({friend}) {
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
-            fontFamily: "serif",
+            fontFamily: "Montserrat, sans-serif",
             height: "100vh",
+            fontWeight: "600",
         }}>
             <img src={photoUrl} style={{width: "250px", height: "250px", borderRadius: "50%"}}></img><h1>{name}</h1>
-            <h3>{phoneNumber}</h3>
-           
+            <h3 style={{margin: "0px"}}>{phoneNumber}</h3>
             <p>Fun Fact: {funFact}</p>
            <ActionButton text="Edit" onAction={() => {console.log("edit!!")}}/>
            <RedActionButton text="Delete" onAction={() => {console.log("delete!!")}}/>
