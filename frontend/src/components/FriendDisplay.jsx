@@ -3,7 +3,9 @@ import { RedActionButton } from "../components/RedActionButton";
 
 /* eslint-disable react/prop-types */
 export function FriendDisplay({ friend, onDelete }) {
-  console.log(friend);
+  if (!friend) {
+    return <div>No friend selected</div>;
+  }
   const { name, phoneNumber, funFact, photoUrl } = friend;
   return (
     <div
