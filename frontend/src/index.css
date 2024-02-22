@@ -11,6 +11,17 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.main {
+  max-width: 960px;
+  display: flex;
+  align-items:center;
+  justify-content: space-between ;
+  margin: auto;
+  background-color: #fff;
+  box-shadow: 0px 2px 8px 4px rgba(0, 0, 0, 0.12);
+  margin-top: 10vh;
+}
+
 .add-contacts {
   padding: 20px 100px;
   max-width: 400px;

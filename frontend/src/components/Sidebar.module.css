@@ -3,9 +3,9 @@
 /* Side bar container */
 .sidebar {
   width: 300px;
-  height: 100vh;
   display: flex;
   flex-direction: column;
+  
 }
 
 .searchbar {
@@ -14,6 +14,7 @@
     border-style: none;
     height: 28px;
     width: 188px;
+    margin-bottom: 20px;
 }
 
 .corner {

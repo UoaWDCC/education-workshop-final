@@ -98,7 +98,7 @@ export default function App() {
     }
   };
   return (
-    <div style={{display: "flex", alignContent: "flex-start", flexDirection: "row"}}>
+    <div class="main">
       <Sidebar
         contacts={contacts}
         addContact={addContact}

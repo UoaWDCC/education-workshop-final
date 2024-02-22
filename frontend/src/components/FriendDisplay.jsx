@@ -14,9 +14,9 @@ export function FriendDisplay({ friend, onDelete }) {
         flexDirection: "column",
         alignItems: "center",
         fontFamily: "Montserrat, sans-serif",
-        height: "100vh",
         fontWeight: "600",
-        width: "100%"
+        flexGrow: 1,
+        flexShrink: 0,
       }}
     >
       {photoUrl && <img src={photoUrl} style={{ width: "250px", height: "250px", borderRadius: "50%" }}></img>}
