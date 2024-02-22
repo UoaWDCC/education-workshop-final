@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 
 const contactSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
   phoneNumber: String,
   photoUrl: String,
   funFact: String
