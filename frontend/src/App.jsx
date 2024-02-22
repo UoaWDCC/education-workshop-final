@@ -11,11 +11,11 @@ export default function App() {
 
   const fetchContacts = async () => {
     setIsLoadingContacts(true);
-    const res = await fetch('http://localhost:3000/api/contact');
+    const res = await fetch("http://localhost:3000/api/contact");
     const data = await res.json();
     setContacts(data);
     setIsLoadingContacts(false);
-   };
+  };
 
   // Fetch contacts on mount
   useEffect(() => {
@@ -24,21 +24,24 @@ export default function App() {
 
     // Setup refetch
     const fiveMinutes = 1000 * 60 * 5;
-    const refetchData = setInterval(fetchContacts, fiveMinutes); 
+    const refetchData = setInterval(fetchContacts, fiveMinutes);
     return () => clearInterval(refetchData);
   }, []);
 
   const addContact = async (name, phoneNumber, funFact) => {
     const tempContacts = contacts;
-    setContacts([...contacts, {
-      name,
-      phoneNumber,
-      funFact
-    }]);
+    setContacts([
+      ...contacts,
+      {
+        name,
+        phoneNumber,
+        funFact
+      }
+    ]);
     try {
-      await fetch('http://localhost:3000/contact', {
-        method: 'POST',
-        body: JSON.stringify( {
+      await fetch("http://localhost:3000/contact", {
+        method: "POST",
+        body: JSON.stringify({
           name,
           phoneNumber,
           funFact
@@ -47,17 +50,15 @@ export default function App() {
     } catch (err) {
       setContacts(tempContacts);
     }
-  }
+  };
 
   const deleteContact = async (name, phoneNumber, funFact) => {
     const tempContacts = contacts;
-    setContacts([...contacts.filter((element) => 
-      element.name !== name
-    )]);
+    setContacts([...contacts.filter((element) => element.name !== name)]);
     try {
-      await fetch('http://localhost:3000/contact', {
-        method: 'PATCH',
-        body: JSON.stringify( {
+      await fetch("http://localhost:3000/contact", {
+        method: "PATCH",
+        body: JSON.stringify({
           name,
           phoneNumber,
           funFact
@@ -66,27 +67,28 @@ export default function App() {
     } catch (err) {
       setContacts(tempContacts);
     }
-  }
-
+  };
 
   const editContact = async (name, phoneNumber, funFact) => {
     const tempContacts = contacts;
     // Optimistic updates
-    setContacts([...contacts.map((element) => {
-      if (element.name == name) {
-        return {
-          name,
-          phoneNumber: phoneNumber || element.phoneNumber,
-          funFact: funFact || element.funFact
+    setContacts([
+      ...contacts.map((element) => {
+        if (element.name == name) {
+          return {
+            name,
+            phoneNumber: phoneNumber || element.phoneNumber,
+            funFact: funFact || element.funFact
+          };
+        } else {
+          return element;
         }
-      } else {
-        return element
-      }
-    })]);
+      })
+    ]);
     try {
-      await fetch('http://localhost:3000/contact', {
-        method: 'PATCH',
-        body: JSON.stringify( {
+      await fetch("http://localhost:3000/contact", {
+        method: "PATCH",
+        body: JSON.stringify({
           name,
           phoneNumber,
           funFact
@@ -95,12 +97,27 @@ export default function App() {
     } catch (err) {
       setContacts(tempContacts);
     }
-  }
+  };
 
   return (
     <div>
-      <Sidebar contacts={contacts} addContact={addContact} deleteContact={deleteContact} editContact={editContact} isLoading={isLoadingContacts} selectedContact={selectedContact} setSelectedContact={setSelectedContact}/>
-      <FriendDisplay friend={contacts.find((element) => element.name == selectedContact)} onDelete={() => deleteContact(selectedContact)}/> 
+      <Sidebar
+        contacts={contacts}
+        addContact={addContact}
+        deleteContact={deleteContact}
+        editContact={editContact}
+        isLoading={isLoadingContacts}
+        selectedContact={selectedContact}
+        setSelectedContact={setSelectedContact}
+      />
+      <FriendDisplay
+        friend={
+          contacts.find((element) => element.name == selectedContact) || {
+            name: "None"
+          }
+        }
+        onDelete={() => deleteContact(selectedContact)}
+      />
       <h1>Hello, world!</h1>
       <p>This is an app.</p>
     </div>
