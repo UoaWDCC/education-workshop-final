@@ -1,10 +1,12 @@
 import ContactCard from "./components/ContactCard";
+import { FriendDisplay } from "./components/FriendDisplay";
 import Sidebar from "./components/Sidebar";
 import { useEffect, useState } from "react";
 
 export default function App() {
   // Array of contacts (replace with your own data)
   const [contacts, setContacts] = useState([]);
+  const [selectedContact, setSelectedContact] = useState(null);
   const [isLoadingContacts, setIsLoadingContacts] = useState(false);
 
   const fetchContacts = async () => {
@@ -97,7 +99,8 @@ export default function App() {
 
   return (
     <div>
-      <Sidebar contacts={contacts} addContact={addContact} deleteContact={deleteContact} editContact={editContact} isLoading={isLoadingContacts}/>
+      <Sidebar contacts={contacts} addContact={addContact} deleteContact={deleteContact} editContact={editContact} isLoading={isLoadingContacts} selectedContact={selectedContact} setSelectedContact={setSelectedContact}/>
+      <FriendDisplay friend={contacts.find((element) => element.name == selectedContact)} onDelete={() => deleteContact(selectedContact)}/> 
       <h1>Hello, world!</h1>
       <p>This is an app.</p>
     </div>
