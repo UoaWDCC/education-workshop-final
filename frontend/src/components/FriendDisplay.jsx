@@ -19,10 +19,15 @@ export function FriendDisplay({ friend, onDelete }) {
         fontWeight: "600",
         flexGrow: 1,
         flexShrink: 0,
-        paddingTop: "50px",
+        paddingTop: "50px"
       }}
     >
-      {photoUrl && <img src={photoUrl} style={{ width: "250px", height: "250px", borderRadius: "50%" }}></img>}
+      <img
+        src={
+          photoUrl || "https://th.bing.com/th/id/OIP.PoS7waY4-VeqgNuBSxVUogAAAA?rs=1&pid=ImgDetMain"
+        }
+        style={{ width: "250px", height: "250px", borderRadius: "50%" }}
+      ></img>
       <h1>{name}</h1>
       {phoneNumber && <h3 style={{ margin: "0px" }}>{phoneNumber}</h3>}
       {funFact && <p>Fun Fact: {funFact}</p>}
