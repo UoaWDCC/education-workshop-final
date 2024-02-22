@@ -1,3 +1,4 @@
+import { AddContact } from "./components/AddContact";
 import { FriendDisplay } from "./components/FriendDisplay";
 
 
@@ -9,6 +10,8 @@ export default function App() {
       {/* <h1>Hello, world!</h1>
       <p>This is an app.</p> */}
       <FriendDisplay friend={dummyFriend} />
+      <AddContact />
+      hello
     </div>
   );
 }
