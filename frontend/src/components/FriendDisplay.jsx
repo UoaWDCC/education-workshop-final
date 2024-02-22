@@ -15,13 +15,14 @@ export function FriendDisplay({ friend, onDelete }) {
         alignItems: "center",
         fontFamily: "Montserrat, sans-serif",
         height: "100vh",
-        fontWeight: "600"
+        fontWeight: "600",
+        width: "100%"
       }}
     >
-      <img src={photoUrl} style={{ width: "250px", height: "250px", borderRadius: "50%" }}></img>
+      {photoUrl && <img src={photoUrl} style={{ width: "250px", height: "250px", borderRadius: "50%" }}></img>}
       <h1>{name}</h1>
-      <h3 style={{ margin: "0px" }}>{phoneNumber || ""}</h3>
-      <p>Fun Fact: {funFact || ""}</p>
+      {phoneNumber && <h3 style={{ margin: "0px" }}>{phoneNumber}</h3>}
+      {funFact && <p>Fun Fact: {funFact}</p>}
       <ActionButton text="Edit" onAction={() => {}} />
       <RedActionButton text="Delete" onAction={onDelete} />
     </div>

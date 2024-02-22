@@ -1,4 +1,3 @@
-import ContactCard from "./components/ContactCard";
 import { FriendDisplay } from "./components/FriendDisplay";
 import Sidebar from "./components/Sidebar";
 import { useEffect, useState } from "react";
@@ -98,18 +97,16 @@ export default function App() {
       setContacts(tempContacts);
     }
   };
-
   return (
-    <div>
+    <div style={{display: "flex", alignContent: "flex-start", flexDirection: "row"}}>
       <Sidebar
         contacts={contacts}
         addContact={addContact}
         deleteContact={deleteContact}
         editContact={editContact}
         isLoading={isLoadingContacts}
-      />
-      <h1>Hello, world!</h1>
-      <p>This is an app.</p>
+      /> 
+      {contacts.length && <FriendDisplay friend={contacts[0]}/>}
     </div>
   );
 }
