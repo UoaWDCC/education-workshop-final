@@ -105,8 +105,9 @@ export default function App() {
         deleteContact={deleteContact}
         editContact={editContact}
         isLoading={isLoadingContacts}
-      /> 
-      {contacts.length && <FriendDisplay friend={contacts[0]}/>}
+        setSelectedContact={setSelectedContact}
+      />
+      {contacts.length && <FriendDisplay friend={selectedContact}/>}
     </div>
   );
 }
