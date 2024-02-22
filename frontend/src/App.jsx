@@ -23,7 +23,7 @@ export default function App() {
     // Setup refetch
     const fiveMinutes = 1000 * 60 * 5;
     const refetchData = setInterval(fetchContacts, fiveMinutes); 
-    return clearInterval(refetchData);
+    return () => clearInterval(refetchData);
   }, []);
 
   const addContact = async (name, phoneNumber, funFact) => {

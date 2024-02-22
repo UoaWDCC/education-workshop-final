@@ -2,7 +2,7 @@ import {ActionButton} from "../components/ActionButton"
 import {RedActionButton} from "../components/RedActionButton"
 
 /* eslint-disable react/prop-types */
-export function FriendDisplay ({friend}) {
+export function FriendDisplay ({friend, onDelete, onEdit}) {
     console.log(friend);
     const {name, phoneNumber, funFact, photoUrl} = friend;
     return (
@@ -19,8 +19,8 @@ export function FriendDisplay ({friend}) {
             <h3>{phoneNumber}</h3>
            
             <p>Fun Fact: {funFact}</p>
-           <ActionButton text="Edit" onAction={() => {console.log("edit!!")}}/>
-           <RedActionButton text="Delete" onAction={() => {console.log("delete!!")}}/>
+           <ActionButton text="Edit" onAction={onEdit}/>
+           <RedActionButton text="Delete" onAction={onDelete}/>
         </div>
     );
 }
