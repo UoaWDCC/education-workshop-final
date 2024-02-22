@@ -19,6 +19,7 @@ export function FriendDisplay({ friend, onDelete }) {
         fontWeight: "600",
         flexGrow: 1,
         flexShrink: 0,
+        paddingTop: "50px",
       }}
     >
       {photoUrl && <img src={photoUrl} style={{ width: "250px", height: "250px", borderRadius: "50%" }}></img>}

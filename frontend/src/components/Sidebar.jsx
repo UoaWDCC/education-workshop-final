@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import ContactCard from "./ContactCard";
 import styles from "./Sidebar.module.css";
+import { AddFriendCard } from "./AddFriendCard";
 
 const Sidebar = ({ contacts, setSelectedContact }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,6 +34,7 @@ const Sidebar = ({ contacts, setSelectedContact }) => {
           <ContactCard key={index} contact={contact} setSelectedContact={setSelectedContact} />
         ))}
       </div>
+      <AddFriendCard onClick={() => {console.log("Adding Friend...")}}/>
     </div>
   );
 };
