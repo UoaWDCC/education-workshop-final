@@ -1,6 +1,19 @@
 import { Router } from "express";
 import { Contact } from "../../data/schema.js";
 
+const photoUrl = async (file) => {
+  if (file == undefined) {
+    return undefined;
+  } else {
+    const fileContent = Buffer.from(file.data, "binary");
+    const response = await fetch("https://api.imgbb.com/1/upload", {
+      body: JSON.stringify({ key: process.env.IMAGEBB_API_KEY, image: fileContent })
+    });
+    const data = await response.json();
+    return data.displayUrl;
+  }
+};
+
 const router = Router();
 
 router.get("/contact", async (req, res) => {
@@ -16,17 +29,14 @@ router.get("/contact", async (req, res) => {
 router.post("/contact", async (req, res) => {
   const { name, phoneNumber, funFact } = req.body;
   if (!name) {
-    return res.status(400).send(`'name', 'phoneNumber', and 'funFact' are required fields`);
+    return res.status(400).send(`'name' is a required fields`);
   }
   try {
-    const response = await fetch("https://randomuser.me/api/");
-    const data = await response.json();
-    const result = data.results[0];
     await Contact.create({
       name,
       phoneNumber,
       funFact,
-      photoUrl: result.picture.large
+      photoUrl: await photoUrl(req.files.image)
     });
   } catch (err) {
     console.error(err);
@@ -45,7 +55,8 @@ router.patch("/contact", async (req, res) => {
       },
       {
         phoneNumber,
-        funFact
+        funFact,
+        photoUrl: await photoUrl(req.files.image)
       }
     );
   } catch (err) {
