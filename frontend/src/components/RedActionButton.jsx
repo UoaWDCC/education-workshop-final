@@ -6,7 +6,6 @@ export function RedActionButton({ text, onAction}) {
         backgroundColor: "#fff",
         borderRadius: "6px",
         border: "2px solid #FF030399",
-        boxShadow: "0px 4px 4px 0px #888888",
         margin: "10px",
         fontWeight: "bold",
     }}onClick={onAction}>{text}</button>
