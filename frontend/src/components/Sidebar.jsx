@@ -17,23 +17,23 @@ const Sidebar = ({ contacts }) => {
   };
 
   // Array of contacts (replace with your own data)
-  const contacts = [
-    { name: "John Doe", phone: "123-456-7890" },
-    { name: "Jane Smith", phone: "987-654-3210" },
-    { name: "Bob Johnson", phone: "555-555-5555" },
-    { name: "John Doe", phone: "123-456-7890" },
-    { name: "Jane Smith", phone: "987-654-3210" },
-    { name: "Bob Johnson", phone: "555-555-5555" },
-    { name: "John Doe", phone: "123-456-7890" },
-    { name: "Jane Smith", phone: "987-654-3210" },
-    { name: "Bob Johnson", phone: "555-555-5555" },
-    { name: "John Doe", phone: "123-456-7890" },
-    { name: "Jane Smith", phone: "987-654-3210" },
-    { name: "Bob Johnson", phone: "555-555-5555" },
-    { name: "John Doe", phone: "123-456-7890" },
-    { name: "Jane Smith", phone: "987-654-3210" },
-    { name: "Bob Johnson", phone: "555-555-5555" }
-  ];
+//   const contacts = [
+//     { name: "John Doe", phone: "123-456-7890" },
+//     { name: "Jane Smith", phone: "987-654-3210" },
+//     { name: "Bob Johnson", phone: "555-555-5555" },
+//     { name: "John Doe", phone: "123-456-7890" },
+//     { name: "Jane Smith", phone: "987-654-3210" },
+//     { name: "Bob Johnson", phone: "555-555-5555" },
+//     { name: "John Doe", phone: "123-456-7890" },
+//     { name: "Jane Smith", phone: "987-654-3210" },
+//     { name: "Bob Johnson", phone: "555-555-5555" },
+//     { name: "John Doe", phone: "123-456-7890" },
+//     { name: "Jane Smith", phone: "987-654-3210" },
+//     { name: "Bob Johnson", phone: "555-555-5555" },
+//     { name: "John Doe", phone: "123-456-7890" },
+//     { name: "Jane Smith", phone: "987-654-3210" },
+//     { name: "Bob Johnson", phone: "555-555-5555" }
+//   ];
 
   return (
     <div className={styles.sidebar}>
