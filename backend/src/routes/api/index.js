@@ -4,14 +4,13 @@ import { Contact } from "../../data/schema.js";
 const photoUrl = async (file) => {
   if (file == undefined) {
     return undefined;
-  } else {
-    const fileContent = Buffer.from(file.data, "binary");
-    const response = await fetch("https://api.imgbb.com/1/upload", {
-      body: JSON.stringify({ key: process.env.IMAGEBB_API_KEY, image: fileContent })
-    });
-    const data = await response.json();
-    return data.displayUrl;
   }
+  const fileContent = Buffer.from(file.data, "binary");
+  const response = await fetch("https://api.imgbb.com/1/upload", {
+    body: JSON.stringify({ key: process.env.IMAGEBB_API_KEY, image: fileContent })
+  });
+  const data = await response.json();
+  return data.displayUrl;
 };
 
 const router = Router();
