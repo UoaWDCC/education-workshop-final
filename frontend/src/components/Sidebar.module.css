@@ -1,0 +1,29 @@
+/* FILEPATH: /Users/emilyzou/Documents/GitHub/education-workshop-final/frontend/src/components/SideBar.module.css */
+
+/* Side bar container */
+.sidebar {
+  width: 300px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchbar {
+    background-color: #C22BF81A;
+    border-radius: 8px;
+    border-style: none;
+    height: 28px;
+    width: 188px;
+}
+
+.corner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+}
+
+.contactList {
+  max-height: 80%;
+  overflow: auto;
+}
