@@ -3,7 +3,9 @@ import { RedActionButton } from "../components/RedActionButton";
 
 /* eslint-disable react/prop-types */
 export function FriendDisplay({ friend, onDelete }) {
-  console.log(friend);
+  if (!friend) {
+    return <div>Loading...</div>;
+  }
   const { name, phoneNumber, funFact, photoUrl } = friend;
   return (
     <div
@@ -15,6 +17,7 @@ export function FriendDisplay({ friend, onDelete }) {
         alignItems: "center",
         fontFamily: "Montserrat, sans-serif",
         height: "100vh",
+        width: "100%",
         fontWeight: "600"
       }}
     >

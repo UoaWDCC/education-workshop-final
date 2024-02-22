@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ContactCard from "./ContactCard";
 import styles from "./Sidebar.module.css";
 
-const Sidebar = ({ contacts }) => {
+const Sidebar = ({ contacts, setSelectedContact }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Function to handle search term change
@@ -48,7 +48,7 @@ const Sidebar = ({ contacts }) => {
       </div>
       <div className={styles.contactList}>
         {contacts.filter(filterContacts).map((contact, index) => (
-          <ContactCard contact={contact} />
+          <ContactCard key={index} contact={contact} setSelectedContact={setSelectedContact} />
         ))}
       </div>
     </div>

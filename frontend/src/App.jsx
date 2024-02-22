@@ -1,7 +1,7 @@
-import ContactCard from "./components/ContactCard";
 import { FriendDisplay } from "./components/FriendDisplay";
 import Sidebar from "./components/Sidebar";
 import { useEffect, useState } from "react";
+import styles from "./App.module.css";
 
 export default function App() {
   // Array of contacts (replace with your own data)
@@ -100,16 +100,16 @@ export default function App() {
   };
 
   return (
-    <div>
+    <div className={styles.app}>
       <Sidebar
         contacts={contacts}
         addContact={addContact}
         deleteContact={deleteContact}
         editContact={editContact}
         isLoading={isLoadingContacts}
+        setSelectedContact={setSelectedContact}
       />
-      <h1>Hello, world!</h1>
-      <p>This is an app.</p>
+      <FriendDisplay friend={selectedContact}/>
     </div>
   );
 }
