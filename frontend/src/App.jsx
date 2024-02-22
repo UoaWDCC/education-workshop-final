@@ -107,16 +107,6 @@ export default function App() {
         deleteContact={deleteContact}
         editContact={editContact}
         isLoading={isLoadingContacts}
-        selectedContact={selectedContact}
-        setSelectedContact={setSelectedContact}
-      />
-      <FriendDisplay
-        friend={
-          contacts.find((element) => element.name == selectedContact) || {
-            name: "None"
-          }
-        }
-        onDelete={() => deleteContact(selectedContact)}
       />
       <h1>Hello, world!</h1>
       <p>This is an app.</p>
