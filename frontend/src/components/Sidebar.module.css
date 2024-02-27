@@ -5,26 +5,28 @@
   width: 300px;
   display: flex;
   flex-direction: column;
-  
+  justify-content: flex-start;
+  position: relative;
+  height: 600px;
 }
 
 .searchbar {
-    background-color: #C22BF81A;
-    border-radius: 8px;
-    border-style: none;
-    height: 28px;
-    width: 188px;
-    margin-bottom: 20px;
+  background-color: #c22bf81a;
+  border-radius: 8px;
+  border-style: none;
+  height: 28px;
+  width: 188px;
+  margin-bottom: 20px;
 }
 
 .corner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
 }
 
 .contactList {
-  max-height: 80%;
+  height: auto;
   overflow: auto;
 }

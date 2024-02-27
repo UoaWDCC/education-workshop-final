@@ -15,7 +15,7 @@
   max-width: 960px;
   display: flex;
   align-items: start;
-  justify-content: space-between ;
+  justify-content: space-between;
   margin: auto;
   background-color: #fff;
   box-shadow: 0px 2px 8px 4px rgba(0, 0, 0, 0.12);
@@ -24,12 +24,19 @@
 }
 
 .add-contacts {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   padding: 20px 100px;
   max-width: 400px;
   margin: auto;
   background-color: #fff;
   border-radius: 20px;
-  box-shadow: 2px 3px 6px 7px rgba(0, 0, 0, 0.07)
+  box-shadow: 2px 3px 6px 7px rgba(0, 0, 0, 0.07);
+  align-self: flex-end;
 }
 
 .add-contact-header {
@@ -45,24 +52,25 @@
   gap: 35px;
 }
 
-.add-contact-details>div {
+.add-contact-details > div {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.add-contact-details label{
+.add-contact-details label {
   font-size: 16px;
-  color: #2C2C2C;
+  color: #2c2c2c;
   font-weight: 600;
 }
 
-.add-contact-details input, .add-contact-details textarea {
+.add-contact-details input,
+.add-contact-details textarea {
   padding: 14px 20px;
   width: stretch;
   border-radius: 6px;
   border: 2px rgba(0, 0, 0, 0.3) solid;
-  background-color: rgba(194, 43, 248, 0.02)
+  background-color: rgba(194, 43, 248, 0.02);
 }
 
 .add-contact-details input::placeholder {
@@ -72,5 +80,5 @@
 }
 
 .add-contact-details button {
-  align-self: center;
+  align-self: flex-end;
 }

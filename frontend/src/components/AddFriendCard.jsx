@@ -3,6 +3,9 @@ export const AddFriendCard = ({onClick}) => {
   return (
     <div style={{display: "flex", 
     flexDirection: "row", 
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
     justifyContent: "space-evenly", 
     alignItems: "center", 
     backgroundColor: "#0DC61412",

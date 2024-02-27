@@ -1,5 +1,6 @@
 import { FriendDisplay } from "./components/FriendDisplay";
 import Sidebar from "./components/Sidebar";
+import { AddContact } from "./components/AddContact";
 import { useEffect, useState } from "react";
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
     const data = await res.json();
     setContacts(data);
     setIsLoadingContacts(false);
+    setSelectedContact(data[0]);
   };
 
   // Fetch contacts on mount
@@ -98,7 +100,8 @@ export default function App() {
     }
   };
   return (
-    <div class="main">
+    <>
+    <div className="main">
       <Sidebar
         contacts={contacts}
         addContact={addContact}
@@ -109,5 +112,6 @@ export default function App() {
       />
       {contacts.length && <FriendDisplay friend={selectedContact}/>}
     </div>
+    <AddContact /></>
   );
 }

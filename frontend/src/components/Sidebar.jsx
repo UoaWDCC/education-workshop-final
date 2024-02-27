@@ -17,9 +17,8 @@ const Sidebar = ({ contacts, setSelectedContact }) => {
     return contact.name.toLowerCase().includes(searchTerm.toLowerCase());
   };
 
-
   return (
-    <div className={styles.sidebar}>
+    <div className={styles.sidebar} style={{ flexDirection: "column"}}>
       <div className={styles.corner}>
         <h2>Friends</h2>
         <input

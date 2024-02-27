@@ -1,22 +1,21 @@
 .card {
-    height: 130px;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 40px;
-    background-color: #F5F0F0;
+  height: 90px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+  background-color: #f5f0f0;
 }
 
 img {
-    border-radius: 50%;
-    height: 60px;
+  border-radius: 50%;
+  height: 60px;
 }
 
 .placeholder {
-    height: 60px;
-    width: 60px;
-    border-radius: 50%; 
-    background-color: white;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background-color: white;
 }
-
