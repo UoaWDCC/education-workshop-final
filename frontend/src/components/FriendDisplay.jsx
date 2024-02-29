@@ -2,7 +2,7 @@ import { ActionButton } from "../components/ActionButton";
 import { RedActionButton } from "../components/RedActionButton";
 
 /* eslint-disable react/prop-types */
-export function FriendDisplay({ friend, onDelete }) {
+export function FriendDisplay({ friend, onDelete, openEditModal }) {
   if (!friend) {
     return <div>No friend selected</div>;
   }
@@ -31,7 +31,7 @@ export function FriendDisplay({ friend, onDelete }) {
       <h1>{name}</h1>
       {phoneNumber && <h3 style={{ margin: "0px" }}>{phoneNumber}</h3>}
       {funFact && <p>Fun Fact: {funFact}</p>}
-      <ActionButton text="Edit" onAction={() => {}} />
+      <ActionButton text="Edit" onAction={() => { openEditModal(true);}} />
       <RedActionButton text="Delete" onAction={onDelete} />
     </div>
   );

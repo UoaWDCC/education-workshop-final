@@ -11,6 +11,7 @@ export const AddFriendCard = ({onClick}) => {
     backgroundColor: "#0DC61412",
     color: "#0DC614",
     padding: "10px 0",
+    height: "65px"
     
     }} onClick={onClick}>
       {/* Icon */}
