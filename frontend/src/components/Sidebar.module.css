@@ -23,10 +23,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: auto;
+  height: 125px;
 }
 
 .contactList {
   height: auto;
+  max-height: 390px;
   overflow: auto;
 }

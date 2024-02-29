@@ -4,7 +4,7 @@ import ContactCard from "./ContactCard";
 import styles from "./Sidebar.module.css";
 import { AddFriendCard } from "./AddFriendCard";
 
-const Sidebar = ({ contacts, setSelectedContact }) => {
+const Sidebar = ({ contacts, setSelectedContact, setModalOpen }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Function to handle search term change
@@ -33,7 +33,7 @@ const Sidebar = ({ contacts, setSelectedContact }) => {
           <ContactCard key={index} contact={contact} setSelectedContact={setSelectedContact} />
         ))}
       </div>
-      <AddFriendCard onClick={() => {console.log("Adding Friend...")}}/>
+      <AddFriendCard onClick={() => {setModalOpen(true)}}/>
     </div>
   );
 };

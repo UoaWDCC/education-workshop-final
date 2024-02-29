@@ -2,7 +2,7 @@
 import { useRef } from 'react'
 import { ActionButton } from './ActionButton'
 
-export function AddContact({visible, setVisible, addContact }){
+export function EditContact({visible, setVisible, editContact, contact }){
   const modalRef = useRef(null);
 
   return (
@@ -22,32 +22,32 @@ export function AddContact({visible, setVisible, addContact }){
     }
     setVisible(false);}}>
     <div className='add-contacts' ref={modalRef}>
-      <h3 className='add-contact-header'>Add Contact</h3>
+      <h3 className='add-contact-header'>Edit Contact</h3>
 
       <div className='add-contact-details'>
         
         {/* Replace this with a HTML form??? */}
         <div>
           <label>Name</label>
-          <input id="name" placeholder='name' />
+          <input id="name" placeholder='name' defaultValue={contact?.name ?? ''}/>
         </div>
        
        <div>
         <label>Phone number</label>
-          <input id="phoneNumber" placeholder='Phone number' />
+          <input id="phoneNumber" placeholder='Phone number' defaultValue ={contact?.phoneNumber ?? ''}/>
        </div>
         
         <div>
           <label>Fun fact</label>
-          <textarea id="funFact" rows={4}/>
+          <textarea id="funFact" rows={4} defaultValue ={contact?.funFact ?? ''}/>
         </div>
      
-       <ActionButton text="Add Contact" onAction={() => { 
+       <ActionButton text="Save" onAction={() => { 
         const name = document.getElementById("name")?.value;
         const phoneNumber = document.getElementById("phoneNumber")?.value;
         const funFact = document.getElementById("funFact")?.value;
         
-        addContact(name, phoneNumber, funFact); 
+        editContact(name, phoneNumber, funFact); 
         setVisible(false);}} />
       </div>
      

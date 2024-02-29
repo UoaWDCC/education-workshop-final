@@ -2,12 +2,17 @@ import { FriendDisplay } from "./components/FriendDisplay";
 import Sidebar from "./components/Sidebar";
 import { AddContact } from "./components/AddContact";
 import { useEffect, useState } from "react";
+import { EditContact } from "./components/EditContact";
 
 export default function App() {
   // Array of contacts (replace with your own data)
   const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
   const [isLoadingContacts, setIsLoadingContacts] = useState(false);
+
+  const [addContactModalOpen, setAddContactModalOpen] = useState(false);
+  const [editContactModalOpen, setEditContactModalOpen] = useState(false);
+
 
   const fetchContacts = async () => {
     setIsLoadingContacts(true);
@@ -86,6 +91,7 @@ export default function App() {
         }
       })
     ]);
+    setSelectedContact({name, phoneNumber, funFact});
     try {
       await fetch("http://localhost:3000/contact", {
         method: "PATCH",
@@ -109,9 +115,12 @@ export default function App() {
         editContact={editContact}
         isLoading={isLoadingContacts}
         setSelectedContact={setSelectedContact}
+        setModalOpen={setAddContactModalOpen}
       />
-      {contacts.length && <FriendDisplay friend={selectedContact}/>}
+      {contacts.length && <FriendDisplay friend={selectedContact} openEditModal={setEditContactModalOpen}/>}
     </div>
-    <AddContact /></>
+    <AddContact visible={addContactModalOpen} addContact={addContact} setVisible={setAddContactModalOpen} />
+    <EditContact visible={editContactModalOpen} editContact={editContact} setVisible={setEditContactModalOpen} contact={selectedContact}/>
+    </>
   );
 }
