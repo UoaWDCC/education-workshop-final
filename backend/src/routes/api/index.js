@@ -35,7 +35,7 @@ router.post("/contact", async (req, res) => {
       name,
       phoneNumber,
       funFact,
-      photoUrl: await photoUrl(req.files.image)
+      photoUrl: req.files?.image ? await photoUrl(req.files.image): undefined
     });
   } catch (err) {
     console.error(err);
@@ -55,7 +55,7 @@ router.patch("/contact", async (req, res) => {
       {
         phoneNumber,
         funFact,
-        photoUrl: await photoUrl(req.files.image)
+        photoUrl: req.files?.image ? await photoUrl(req.files.image): undefined,
       }
     );
   } catch (err) {
