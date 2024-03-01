@@ -45,13 +45,14 @@ export default function App() {
       }
     ]);
     try {
-      await fetch("http://localhost:3000/contact", {
+      await fetch("http://localhost:3000/api/contact", {
         method: "POST",
         body: JSON.stringify({
           name,
           phoneNumber,
           funFact
-        })
+        }),
+        headers: {'content-type': 'application/json'},
       });
     } catch (err) {
       setContacts(tempContacts);
@@ -62,13 +63,14 @@ export default function App() {
     const tempContacts = contacts;
     setContacts([...contacts.filter((element) => element.name !== name)]);
     try {
-      await fetch("http://localhost:3000/contact", {
+      await fetch("http://localhost:3000/api/contact", {
         method: "PATCH",
         body: JSON.stringify({
           name,
           phoneNumber,
           funFact
-        })
+        }),
+        headers: {'content-type': 'application/json'},
       });
     } catch (err) {
       setContacts(tempContacts);
@@ -93,13 +95,14 @@ export default function App() {
     ]);
     setSelectedContact({name, phoneNumber, funFact});
     try {
-      await fetch("http://localhost:3000/contact", {
+      await fetch("http://localhost:3000/api/contact", {
         method: "PATCH",
         body: JSON.stringify({
           name,
           phoneNumber,
           funFact
-        })
+        }), 
+        headers: {'content-type': 'application/json'},
       });
     } catch (err) {
       setContacts(tempContacts);
