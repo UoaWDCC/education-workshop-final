@@ -1,18 +1,6 @@
 import { Router } from "express";
 import { Contact } from "../../data/schema.js";
 
-const photoUrl = async (file) => {
-  if (file == undefined) {
-    return undefined;
-  }
-  const fileContent = Buffer.from(file.data, "binary");
-  const response = await fetch("https://api.imgbb.com/1/upload", {
-    body: JSON.stringify({ key: process.env.IMAGEBB_API_KEY, image: fileContent })
-  });
-  const data = await response.json();
-  return data.displayUrl;
-};
-
 const router = Router();
 
 router.get("/contact", async (req, res) => {
@@ -30,32 +18,42 @@ router.post("/contact", async (req, res) => {
   if (!name) {
     return res.status(400).send(`'name' is a required fields`);
   }
+  const response = await fetch("https://randomuser.me/api/?results=1");
+  const data = await response.json();
+  const photoUrl = data.results[0].picture.large;
   try {
     await Contact.create({
       name,
       phoneNumber,
       funFact,
-      photoUrl: req.files?.image ? await photoUrl(req.files.image): undefined
+      photoUrl
     });
   } catch (err) {
     console.error(err);
     return res.status(500).send("failed to create contact");
   }
-  return res.status(201).send("create user");
+  return res.status(201).json({
+    name,
+    phoneNumber,
+    funFact,
+    photoUrl
+  });
 });
 
 router.patch("/contact", async (req, res) => {
-  const { name, phoneNumber, funFact } = req.body;
-  if (!name) return res.status(400).send(`'name' is a required field`);
+  const { name, newName, phoneNumber, funFact } = req.body;
+  if (!name || !newName) return res.status(400).send(`'name' and 'newName' are required fields`);
   try {
+    const existingContact = await Contact.find({ name });
     await Contact.findOneAndUpdate(
       {
         name
       },
       {
+        name: newName,
         phoneNumber,
         funFact,
-        photoUrl: req.files?.image ? await photoUrl(req.files.image): undefined,
+        photoUrl: existingContact.photoUrl
       }
     );
   } catch (err) {

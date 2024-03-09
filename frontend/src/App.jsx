@@ -13,7 +13,6 @@ export default function App() {
   const [addContactModalOpen, setAddContactModalOpen] = useState(false);
   const [editContactModalOpen, setEditContactModalOpen] = useState(false);
 
-
   const fetchContacts = async () => {
     setIsLoadingContacts(true);
     const res = await fetch("http://localhost:3000/api/contact");
@@ -45,15 +44,20 @@ export default function App() {
       }
     ]);
     try {
-      await fetch("http://localhost:3000/api/contact", {
+      const res = await fetch("http://localhost:3000/api/contact", {
         method: "POST",
         body: JSON.stringify({
           name,
           phoneNumber,
           funFact
         }),
-        headers: {'content-type': 'application/json'},
+        headers: { "content-type": "application/json" }
       });
+      const data = await res.json();
+      const updatedContacts = [...tempContacts, data];
+      setContacts(updatedContacts);
+      setSelectedContact(data);
+      console.log(`updatedContacts = ${updatedContacts.map(JSON.stringify)}`);
     } catch (err) {
       setContacts(tempContacts);
     }
@@ -61,69 +65,90 @@ export default function App() {
 
   const deleteContact = async (name, phoneNumber, funFact) => {
     const tempContacts = contacts;
+    const tempSelectedContact = selectedContact;
     setContacts([...contacts.filter((element) => element.name !== name)]);
+    setSelectedContact(contacts[0]);
     try {
       await fetch("http://localhost:3000/api/contact", {
-        method: "PATCH",
+        method: "DELETE",
         body: JSON.stringify({
-          name,
-          phoneNumber,
-          funFact
+          name
         }),
-        headers: {'content-type': 'application/json'},
+        headers: { "content-type": "application/json" }
       });
     } catch (err) {
       setContacts(tempContacts);
+      setSelectedContact(tempSelectedContact);
     }
   };
 
-  const editContact = async (name, phoneNumber, funFact) => {
+  const editContact = async (name, newName, phoneNumber, funFact, photoUrl) => {
     const tempContacts = contacts;
+    const tempSelectedContact = selectedContact;
     // Optimistic updates
-    setContacts([
-      ...contacts.map((element) => {
+    setSelectedContact({ name: newName, phoneNumber, funFact, photoUrl });
+    setContacts(
+      contacts.map((element) => {
         if (element.name == name) {
           return {
-            name,
+            name: newName || element.name,
             phoneNumber: phoneNumber || element.phoneNumber,
-            funFact: funFact || element.funFact
+            funFact: funFact || element.funFact,
+            photoUrl: element.photoUrl
           };
         } else {
           return element;
         }
       })
-    ]);
-    setSelectedContact({name, phoneNumber, funFact});
+    );
     try {
       await fetch("http://localhost:3000/api/contact", {
         method: "PATCH",
         body: JSON.stringify({
+          newName,
           name,
           phoneNumber,
           funFact
-        }), 
-        headers: {'content-type': 'application/json'},
+        }),
+        headers: { "content-type": "application/json" }
       });
     } catch (err) {
       setContacts(tempContacts);
+      setSelectedContact(tempSelectedContact);
     }
   };
   return (
     <>
-    <div className="main">
-      <Sidebar
-        contacts={contacts}
+      <div className="main">
+        <Sidebar
+          contacts={contacts}
+          addContact={addContact}
+          deleteContact={deleteContact}
+          editContact={editContact}
+          isLoading={isLoadingContacts}
+          setSelectedContact={setSelectedContact}
+          setModalOpen={setAddContactModalOpen}
+        />
+        {contacts.length && (
+          <FriendDisplay
+            friend={selectedContact}
+            openEditModal={setEditContactModalOpen}
+            onDelete={() => deleteContact(selectedContact.name)}
+          />
+        )}
+      </div>
+      <AddContact
+        visible={addContactModalOpen}
         addContact={addContact}
-        deleteContact={deleteContact}
-        editContact={editContact}
-        isLoading={isLoadingContacts}
-        setSelectedContact={setSelectedContact}
-        setModalOpen={setAddContactModalOpen}
+        setVisible={setAddContactModalOpen}
       />
-      {contacts.length && <FriendDisplay friend={selectedContact} openEditModal={setEditContactModalOpen}/>}
-    </div>
-    <AddContact visible={addContactModalOpen} addContact={addContact} setVisible={setAddContactModalOpen} />
-    <EditContact visible={editContactModalOpen} editContact={editContact} setVisible={setEditContactModalOpen} contact={selectedContact}/>
+      <EditContact
+        visible={editContactModalOpen}
+        editContact={editContact}
+        setVisible={setEditContactModalOpen}
+        contact={selectedContact}
+        deleteContact={deleteContact}
+      />
     </>
   );
 }

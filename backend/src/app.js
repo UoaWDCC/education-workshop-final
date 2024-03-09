@@ -4,9 +4,7 @@ dotenv.config();
 
 import express from "express";
 import cors from "cors";
-import morgan from "morgan";
 import mongoose from "mongoose";
-import fileUpload from "express-fileupload";
 
 // Set's our port to the PORT environment variable, or 3000 by default if the env is not configured.
 const PORT = process.env.PORT ?? 3000;
@@ -15,10 +13,8 @@ const PORT = process.env.PORT ?? 3000;
 const app = express();
 
 // Configure middleware (logging, CORS support, JSON parsing support, static files support)
-app.use(morgan("combined"));
 app.use(cors());
 app.use(express.json());
-app.use(fileUpload());
 app.use(express.static("public"));
 
 // Import and use our application routes.
