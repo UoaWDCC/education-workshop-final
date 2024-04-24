@@ -1,20 +1,24 @@
 /* eslint-disable react/prop-types */
-export function ActionButton({ text, onAction }) {
+import styles from "./ActionButton.module.css";
+import clsx from "clsx";
+
+/**
+ * A button! Yay!
+ */
+export function ActionButton({ text, ...props }) {
   return (
-    <button
-      style={{
-        padding: "12px 30px",
-        color: "#fff",
-        backgroundColor: "#C22BF8",
-        borderRadius: "6px",
-        border: "none",
-        boxShadow: "0px 4px 4px 0px #888888",
-        cursor: "pointer",
-        margin: "10px",
-        fontWeight: "bold"
-      }}
-      onClick={onAction}
-    >
+    <button className={styles.button} {...props}>
+      {text}
+    </button>
+  );
+}
+
+/**
+ * An alternatively-styled button! Also yay!
+ */
+export function RedActionButton({ text, ...props }) {
+  return (
+    <button className={clsx(styles.button, styles.red)} {...props}>
       {text}
     </button>
   );

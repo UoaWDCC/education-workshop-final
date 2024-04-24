@@ -1,11 +1,12 @@
 .card {
-  height: 90px;
+  /* height: 90px; */
   padding: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 40px;
   background-color: #f5f0f0;
+  cursor: pointer;
 }
 
 img {
@@ -18,4 +19,8 @@ img {
   width: 60px;
   border-radius: 50%;
   background-color: white;
+}
+
+.card:is(.active, :hover) {
+  background-color: #e8e4e4;
 }
