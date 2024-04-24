@@ -1,8 +1,5 @@
-/* FILEPATH: /Users/emilyzou/Documents/GitHub/education-workshop-final/frontend/src/components/SideBar.module.css */
-
-/* Side bar container */
 .sidebar {
-  width: 300px;
+  width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

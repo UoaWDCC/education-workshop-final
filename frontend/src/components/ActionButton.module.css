@@ -1,0 +1,18 @@
+.button {
+  padding: 12px 30px;
+  color: #fff;
+  background-color: #c22bf8;
+  border-radius: 6px;
+  border: none;
+  box-shadow: 0px 4px 4px 0px #888888;
+  cursor: pointer;
+  margin: 10px;
+  font-weight: bold;
+}
+
+.button.red {
+  padding: 10px 20px;
+  color: #ff030399;
+  background-color: #fff;
+  border: 2px solid #ff030399;
+}

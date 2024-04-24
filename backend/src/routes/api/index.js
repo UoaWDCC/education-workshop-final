@@ -8,6 +8,9 @@ import {
 
 const router = Router();
 
+/**
+ * GET /api/contacts: Returns a 200 OK response with a JSON array of all contacts.
+ */
 router.get("/contacts", async (req, res) => {
   try {
     return res.json(await retrieveContacts());
@@ -17,6 +20,13 @@ router.get("/contacts", async (req, res) => {
   }
 });
 
+/**
+ * POST /api/contacts: Creates a contact with the name, phoneNumber and funFact included in the request
+ * body. name is required and must be unique; the others are optional.
+ *
+ * If name is not supplied or is not unique, returns a 422 response. Otherwise, returns a 201 response
+ * with its location header set, and a JSON representation of the created contact.
+ */
 router.post("/contacts", async (req, res) => {
   const { name, phoneNumber, funFact } = req.body;
   if (!name) {
@@ -42,12 +52,18 @@ router.post("/contacts", async (req, res) => {
   }
 });
 
+/**
+ * PATCH /api/contacts/:id: Updates the contact with the id given in the path param, if it exists.
+ *
+ * Returns a 404 if the contact doesn't exist. Returns a 422 if trying to update the contact's name
+ * to one that is already taken. Returns a 204 response if successful.
+ */
 router.patch("/contacts/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, phoneNumber, funFact } = req.body;
+  const { name, phoneNumber, funFact, photoUrl } = req.body;
 
   try {
-    const updated = await updateContact(id, { name, phoneNumber, funFact });
+    const updated = await updateContact(id, { name, phoneNumber, funFact, photoUrl });
 
     if (!updated) return res.status(404).send(`Contact ${id} not found`);
 
@@ -65,6 +81,10 @@ router.patch("/contacts/:id", async (req, res) => {
   }
 });
 
+/**
+ * DELETE /api/contacts/:id: Deletes the contact with the given id, if it exists. Returns a 204
+ * response either way.
+ */
 router.delete("/contacts/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -73,7 +93,7 @@ router.delete("/contacts/:id", async (req, res) => {
     return res.sendStatus(204);
   } catch (err) {
     // Handle the case where we try to update the contact with an id that's not formatted properly
-    if (err?.value === id) return res.status(404).send(`Invalid id ${id}`);
+    if (err?.value === id) return res.sendStatus(204);
 
     // Unknown error e.g. can't connect to database
     console.error(err);

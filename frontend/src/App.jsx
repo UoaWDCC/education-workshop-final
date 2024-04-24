@@ -1,153 +1,53 @@
-import { FriendDisplay } from "./components/FriendDisplay";
+import styles from "./App.module.css";
+import ContactDisplay from "./components/ContactDisplay";
 import Sidebar from "./components/Sidebar";
-import { AddContact } from "./components/AddContact";
-import { useEffect, useState } from "react";
-import { EditContact } from "./components/EditContact";
+import AddContactModal from "./components/AddContactModal";
+import EditContactModal from "./components/EditContactModal";
+import { useState } from "react";
+import { useContacts } from "./hooks/useContacts.js";
 
 export default function App() {
-  // Array of contacts (replace with your own data)
-  const [contacts, setContacts] = useState([]);
-  const [selectedContact, setSelectedContact] = useState(null);
-  const [isLoadingContacts, setIsLoadingContacts] = useState(false);
+  const [isAddContactVisible, setAddContactVisible] = useState(false);
+  const [isEditContactVisible, setEditContactVisible] = useState(false);
 
-  const [addContactModalOpen, setAddContactModalOpen] = useState(false);
-  const [editContactModalOpen, setEditContactModalOpen] = useState(false);
+  const { contacts, selectedContact, setSelectedContact, addContact, deleteContact, editContact } =
+    useContacts();
 
-  const fetchContacts = async () => {
-    setIsLoadingContacts(true);
-    const res = await fetch("http://localhost:3000/api/contact");
-    const data = await res.json();
-    setContacts(data);
-    setIsLoadingContacts(false);
-    setSelectedContact(data[0]);
-  };
-
-  // Fetch contacts on mount
-  useEffect(() => {
-    // Initial fetch
-    fetchContacts();
-
-    // Setup refetch
-    const fiveMinutes = 1000 * 60 * 5;
-    const refetchData = setInterval(fetchContacts, fiveMinutes);
-    return () => clearInterval(refetchData);
-  }, []);
-
-  const addContact = async (name, phoneNumber, funFact) => {
-    const tempContacts = contacts;
-    setContacts([
-      ...contacts,
-      {
-        name,
-        phoneNumber,
-        funFact
-      }
-    ]);
-    try {
-      const res = await fetch("http://localhost:3000/api/contact", {
-        method: "POST",
-        body: JSON.stringify({
-          name,
-          phoneNumber,
-          funFact
-        }),
-        headers: { "content-type": "application/json" }
-      });
-      const data = await res.json();
-      const updatedContacts = [...tempContacts, data];
-      setContacts(updatedContacts);
-      setSelectedContact(data);
-      console.log(`updatedContacts = ${updatedContacts.map(JSON.stringify)}`);
-    } catch (err) {
-      setContacts(tempContacts);
-    }
-  };
-
-  const deleteContact = async (name, phoneNumber, funFact) => {
-    const tempContacts = contacts;
-    const tempSelectedContact = selectedContact;
-    setContacts([...contacts.filter((element) => element.name !== name)]);
-    setSelectedContact(contacts[0]);
-    try {
-      await fetch("http://localhost:3000/api/contact", {
-        method: "DELETE",
-        body: JSON.stringify({
-          name
-        }),
-        headers: { "content-type": "application/json" }
-      });
-    } catch (err) {
-      setContacts(tempContacts);
-      setSelectedContact(tempSelectedContact);
-    }
-  };
-
-  const editContact = async (name, newName, phoneNumber, funFact, photoUrl) => {
-    const tempContacts = contacts;
-    const tempSelectedContact = selectedContact;
-    // Optimistic updates
-    setSelectedContact({ name: newName, phoneNumber, funFact, photoUrl });
-    setContacts(
-      contacts.map((element) => {
-        if (element.name == name) {
-          return {
-            name: newName || element.name,
-            phoneNumber: phoneNumber || element.phoneNumber,
-            funFact: funFact || element.funFact,
-            photoUrl: element.photoUrl
-          };
-        } else {
-          return element;
-        }
-      })
-    );
-    try {
-      await fetch("http://localhost:3000/api/contact", {
-        method: "PATCH",
-        body: JSON.stringify({
-          newName,
-          name,
-          phoneNumber,
-          funFact
-        }),
-        headers: { "content-type": "application/json" }
-      });
-    } catch (err) {
-      setContacts(tempContacts);
-      setSelectedContact(tempSelectedContact);
-    }
-  };
   return (
     <>
-      <div className="main">
+      <div className={styles.container}>
+        {/* Sidebar (nav) */}
         <Sidebar
           contacts={contacts}
-          addContact={addContact}
-          deleteContact={deleteContact}
-          editContact={editContact}
-          isLoading={isLoadingContacts}
-          setSelectedContact={setSelectedContact}
-          setModalOpen={setAddContactModalOpen}
+          selectedContact={selectedContact}
+          onAddContactClicked={() => setAddContactVisible(true)}
+          onContactClicked={(contact) => setSelectedContact(contact)}
         />
+
+        {/* Main area, displays detailed info about selected contact */}
         {contacts.length && (
-          <FriendDisplay
-            friend={selectedContact}
-            openEditModal={setEditContactModalOpen}
-            onDelete={() => deleteContact(selectedContact.name)}
+          <ContactDisplay
+            contact={selectedContact}
+            onEditClick={() => setEditContactVisible(true)}
+            onDeleteClick={() => deleteContact(selectedContact._id)}
           />
         )}
       </div>
-      <AddContact
-        visible={addContactModalOpen}
-        addContact={addContact}
-        setVisible={setAddContactModalOpen}
+
+      {/* Modal for adding new contacts */}
+      <AddContactModal
+        visible={isAddContactVisible}
+        onAddContact={addContact}
+        onClose={() => setAddContactVisible(false)}
       />
-      <EditContact
-        visible={editContactModalOpen}
-        editContact={editContact}
-        setVisible={setEditContactModalOpen}
+
+      {/* Modal for editing existing contacts */}
+      <EditContactModal
+        visible={isEditContactVisible}
+        onEditContact={editContact}
+        onClose={() => setEditContactVisible(false)}
         contact={selectedContact}
-        deleteContact={deleteContact}
+        onDeleteContact={deleteContact}
       />
     </>
   );

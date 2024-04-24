@@ -1,0 +1,14 @@
+.button {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #0dc61412;
+  color: #0dc614;
+  padding: 10px 0;
+  height: 65px;
+  cursor: pointer;
+}
