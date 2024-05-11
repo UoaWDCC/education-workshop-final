@@ -2,7 +2,8 @@
 
 Welcome to the FullStack!! This is a simple contacts application which demos a backend server, database DAO, and modern frontend.
 
-If deploying online, please do not store any sensitive data in this application as we're keeping things simple for now.
+> [!NOTE]
+> If deploying online, please do not store any sensitive data in this application as we're keeping things simple for now.
 
 ## Running the server
 
